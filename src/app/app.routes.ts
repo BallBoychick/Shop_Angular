@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { RegisterPageComponent } from './register-page/register-page.component';
 
 export const routes: Routes = [
+  {path: '' , redirectTo:'/login',pathMatch:'full'},
     {path: '', component: MainLayoutComponent, children: [
       {path: '', component: MainPageComponent},
       {path: 'cart', component: CartPageComponent}
