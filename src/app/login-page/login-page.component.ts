@@ -28,11 +28,7 @@ export class LoginPageComponent {
     if (localUser != null) {
       const users = JSON.parse(localUser);
 
-      console.log(users)
-
-      const lol = users.find((user:SignUpModel) => console.log(this.loginObj.name));
-
-      const isUserPresent = users.find((user:SignUpModel) => user.email == this.loginObj.email && user.name == this.loginObj.name)
+      const isUserPresent = users.find((user:SignUpModel) => user.email == this.form.value.email && user.name == this.form.value.name)
 
       if(isUserPresent !=undefined) {
         alert("User Found")

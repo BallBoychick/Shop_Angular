@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main-layout',
@@ -9,5 +9,20 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './main-layout.component.scss'
 })
 export class MainLayoutComponent {
+
+  loggedUser: any;
+  constructor(private router: Router) {
+    if (typeof localStorage !== 'undefined') {
+    const localUser = localStorage.getItem('loggedUser');
+    if(localUser != null) {
+      this.loggedUser = JSON.parse(localUser)
+    }
+  }
+  }
+
+  onLogoff() {
+    localStorage.removeItem('loggedUser');
+    this.router.navigateByUrl('login');
+  }
 
 }

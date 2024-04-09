@@ -23,18 +23,15 @@ export class RegisterPageComponent {
   }
 
   submit(){
-    console.log(this.form.value);
     const localUser = localStorage.getItem('angular17users');
     if (localUser != null) {
       const users = JSON.parse(localUser);
       users.push(this.form.value);
-      users.push(this.signUpobj);
       localStorage.setItem('angular17users', JSON.stringify(users));
     }
     else {
       const users = [];
       users.push(this.form.value);
-      users.push(this.signUpobj);
       localStorage.setItem('angular17users', JSON.stringify(users));
     }
     this.router.navigateByUrl('login');
