@@ -31,9 +31,8 @@ export class LoginPageComponent {
       const isUserPresent = users.find((user:SignUpModel) => user.email == this.form.value.email && user.name == this.form.value.name)
 
       if(isUserPresent !=undefined) {
-        alert("User Found")
         localStorage.setItem('loggedUser', JSON.stringify(isUserPresent));
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('main');
       } else {
         alert("NO Found")
       }
