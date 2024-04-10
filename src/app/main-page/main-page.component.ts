@@ -1,13 +1,13 @@
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Prod } from '../prod';
-import { HeroService } from '../prod.service';
 import { HttpClient } from '@angular/common/http';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 
-import {getFirestore, doc, getDoc} from "firebase/firestore";
+import {getFirestore, doc, getDoc, collection, getDocs} from "firebase/firestore";
+import { ProductService } from '../prod.service';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,26 +30,51 @@ const app = initializeApp(firebaseConfig);
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [RouterLink, NgForOf],
+  imports: [RouterLink, NgForOf, NgIf],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.scss'
 })
 
 export class MainPageComponent implements OnInit{
-  http = inject(HttpClient);
+  // http = inject(HttpClient);
   post: any = [];
-  products: any;
+  // products: any;
+  products$ : any;
+  phones: any = [];
+
+  constructor(private productServ: ProductService
+  ) {}
+
   ngOnInit(): void {
-    this.fetchPosts();
+    this.products$ = this.productServ.getAll()
   }
 
-  async fetchPosts() {
-    const db = getFirestore();
-    const docRef = doc(db, "Androids", "3fSwToYz2BBKeHs6PPRj");
-    const docSnap = await getDoc(docRef);
-    console.log(docSnap.data());
-    this.products = docSnap.data();
-  }
+  // fetchPosts() {
+  //   // const db = getFirestore();
+  //   // const docRef = doc(db, "Androids", "3fSwToYz2BBKeHs6PPRj");
+  //   // const docSnap = await getDoc(docRef);
+  //   // console.log(docSnap.data());
+  //   // this.products = docSnap.data();
+  //   // init services
+  //   const db = getFirestore()
+
+  //   // collection ref
+  //   const colRef = collection(db, 'Androids')
+
+  //   // get collection data
+  //   getDocs(colRef)
+  //     .then(snapshot => {
+  //       // console.log(snapshot.docs)
+  //       // let phones = []
+  //       snapshot.docs.forEach(doc => {
+  //         this.phones.push({ ...doc.data(), id: doc.id})
+  //       })
+  //       // console.log(this.phones)
+  //     })
+  //     .catch(err => {
+  //       console.log(err.message)
+  //     })
+  // }
   
 
   

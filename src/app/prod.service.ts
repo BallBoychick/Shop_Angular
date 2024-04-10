@@ -1,6 +1,7 @@
-import { Injectable, NgModule } from '@angular/core';
+import { Injectable, NgModule, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { initializeApp } from "firebase/app";
+import {getFirestore, doc, getDoc, collection, getDocs} from "firebase/firestore";
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AppRoutingModule } from './app.routes';
@@ -14,40 +15,48 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-@Injectable({ providedIn: 'root' })
-export class HeroService {
+const firebaseConfig = {
+  apiKey: "AIzaSyAfftqgIII_V5ltJ1FpQ_gq_oL0us6ypek",
+  authDomain: "shopangular-4f640.firebaseapp.com",
+  databaseURL: "https://shopangular-4f640-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "shopangular-4f640",
+  storageBucket: "shopangular-4f640.appspot.com",
+  messagingSenderId: "249617603434",
+  appId: "1:249617603434:web:81fa4fc76d96a32b512313"
+};
 
-  private productsUrl = 'api/main';  // URL to web api
-
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+@Injectable()
+export class ProductService {
+  post: any = [];
+  products: any;
+  phones: any = [];
   constructor(
     private http: HttpClient) { }
+    
+    
+  getAll() {
+    const db = getFirestore()
 
-  /** GET heroes from the server */
-  getHeroes (): Observable<Prod[]> {
-    return this.http.get<Prod[]>(this.productsUrl)
-      .pipe(
-        tap(_ => this.log('fetched heroes')),
-        catchError(this.handleError<Prod[]>('getHeroes', []))
-      );
+    // collection ref
+    const colRef = collection(db, 'Androids')
+
+    // get collection data
+    getDocs(colRef)
+      .then(snapshot => {
+        // console.log(snapshot.docs)
+        // let phones = []
+        snapshot.docs.forEach(doc => {
+          this.phones.push({ ...doc.data(), id: doc.id})
+        })
+        console.log(this.phones)
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
+
+      return this.phones;
   }
-
-
-
-
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-}  log(arg0: string) {
-    throw new Error('Method not implemented.');
+  
   }
-
-}

@@ -7,6 +7,9 @@
   </li>
 </ul> -->
 
-<li routerLinkActive="active">
-  {{products?.name}}
-</li>
+<ul>
+  <li *ngFor="let phone of products$">
+    {{phone.name}}
+    {{phone.price}}
+  </li>
+</ul>
