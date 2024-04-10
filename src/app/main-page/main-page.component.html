@@ -7,9 +7,14 @@
   </li>
 </ul> -->
 
-<ul>
+<div *ngIf="products$">
+    <app-product-page *ngFor="let product of $any(products$)" [product]="product">
+    </app-product-page>
+</div>
+
+<!-- <ul>
   <li *ngFor="let phone of products$">
     {{phone.name}}
     {{phone.price}}
   </li>
-</ul>
+</ul> -->

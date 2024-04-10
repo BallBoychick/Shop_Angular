@@ -43,14 +43,16 @@ export class ProductService {
     const colRef = collection(db, 'Androids')
 
     // get collection data
+
+    
     getDocs(colRef)
       .then(snapshot => {
-        // console.log(snapshot.docs)
         // let phones = []
+        
         snapshot.docs.forEach(doc => {
           this.phones.push({ ...doc.data(), id: doc.id})
         })
-        console.log(this.phones)
+        // console.log(this.phones);
       })
       .catch(err => {
         console.log(err.message)
@@ -58,5 +60,32 @@ export class ProductService {
 
       return this.phones;
   }
-  
+
+
+  async getPhoneById(id: string) {
+    const db = getFirestore();
+    const docRef = doc(db, 'Androids', id);
+    try {
+      const docSnap = await getDoc(docRef);
+      console.log(docSnap.data())
+      const data = JSON.parse(JSON.stringify(docSnap.data()));
+      // console.log(data.name);
+      const transformedData = of(data).pipe(
+        map((res) => {
+          return {
+            ...res,
+            id,
+            date: new Date(res.date)
+          }
+        })).subscribe((result) => {
+          console.log(result);
+        });
+        return 1;
+    } catch (err) {
+      console.error('Error getting document:', err);
+      return null;
+    }
   }
+  
+
+}

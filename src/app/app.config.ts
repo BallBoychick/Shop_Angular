@@ -8,7 +8,7 @@ import { InmemoryTestData } from './inmemory-test-data';
 import { ProductService } from './prod.service';
 
 export const appConfig: ApplicationConfig = {
-  providers: [ProductService, provideClientHydration(), provideHttpClient(), provideRouter(routes), 
+  providers: [ProductService, provideClientHydration(), provideHttpClient(withFetch()), provideRouter(routes), 
     importProvidersFrom(InMemoryWebApiModule.forRoot(InmemoryTestData, {delay: 2000}))
   ]
 };

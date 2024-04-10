@@ -10,12 +10,14 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { BookComponent } from './book.component';
 import { InmemoryTestData } from './inmemory-test-data';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 export const routes: Routes = [
   {path: '' , redirectTo:'/login',pathMatch:'full'},
     {path: '', component: MainLayoutComponent, children: [
       {path: 'main', component: MainPageComponent},
-      {path: 'cart', component: CartPageComponent}
+      {path: 'cart', component: CartPageComponent},
+      {path: 'product:/id', component: ProductPageComponent}
     ]},
     {path: 'login', component: LoginPageComponent},
     {path: 'register', component: RegisterPageComponent},
