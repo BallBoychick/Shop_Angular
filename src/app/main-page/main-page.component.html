@@ -1,8 +1,12 @@
 <p>main-page works!</p>
-<ul class="heroes">
+<!-- <ul class="heroes">
   <li *ngFor="let product of products">
     <a routerLink="{{product.id}}">
       <span class="badge">{{product.id}}</span> {{product.name}}
     </a>
   </li>
-</ul>
+</ul> -->
+
+<li routerLinkActive="active">
+  {{products?.name}}
+</li>

@@ -8,11 +8,11 @@ import { Prod } from './prod';
 export class InMemoryDataService
     implements InMemoryDbService {
     createDb() {
-        const main = [
+        const mainData = [
             { id: 11, name: 'Android', price: "30$" },
             { id: 12, name: 'IPhone', price: "30000$" }
         ];
-        return { main };
+        return { main:  mainData};
     }
 
     // Overrides the genId method to ensure that a hero always has an id.

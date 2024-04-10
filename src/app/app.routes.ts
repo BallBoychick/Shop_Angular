@@ -8,6 +8,8 @@ import { NgModule } from '@angular/core';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { BookComponent } from './book.component';
+import { InmemoryTestData } from './inmemory-test-data';
 
 export const routes: Routes = [
   {path: '' , redirectTo:'/login',pathMatch:'full'},
@@ -17,6 +19,7 @@ export const routes: Routes = [
     ]},
     {path: 'login', component: LoginPageComponent},
     {path: 'register', component: RegisterPageComponent},
+    {path: 'books', component: BookComponent},
 ];
 
 @NgModule({
@@ -24,6 +27,10 @@ export const routes: Routes = [
   imports: [ RouterModule.forRoot(routes), HttpClientModule, HttpClientInMemoryWebApiModule.forRoot(
     InMemoryDataService,
     { dataEncapsulation: false }
+), 
+HttpClientInMemoryWebApiModule.forRoot(
+  InmemoryTestData,
+  { dataEncapsulation: false }
 ), MainPageComponent],
 })
 export class AppRoutingModule {}

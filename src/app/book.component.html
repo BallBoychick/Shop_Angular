@@ -1,0 +1,9 @@
+<h3>Books By Category</h3>
+<div *ngFor="let book of booksByCategory$ | async" >
+    Id: {{book.id}}, Name: {{book.name}}, Category: {{book.category}}
+</div>
+
+<h3>Writers By City</h3>
+<div *ngFor="let writer of writersByCity$ | async" >
+    Id: {{writer.id}}, Name: {{writer.name}}, City: {{writer.city}}
+</div>
