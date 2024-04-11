@@ -7,7 +7,7 @@
   </li>
 </ul> -->
 
-<div *ngIf="products$">
+<div *ngIf="products$" class="main-product">
     <app-product-page *ngFor="let product of $any(products$)" [product]="product">
     </app-product-page>
 </div>
