@@ -7,6 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { AppRoutingModule } from './app.routes';
 import { Prod } from './prod';
 import { MainPageComponent } from './main-page/main-page.component';
+import { Book } from './Book';
 NgModule({
   exports: [ ],
   imports: [ MainPageComponent],
@@ -32,6 +33,8 @@ export class ProductService {
   post: any = [];
   products: any;
   phones: any = [];
+
+  sus: Book | undefined;
   constructor(
     private http: HttpClient) { }
     
@@ -63,28 +66,34 @@ export class ProductService {
 
 
   async getPhoneById(id: string) {
+    
     const db = getFirestore();
     const docRef = doc(db, 'Androids', id);
-    try {
-      const docSnap = await getDoc(docRef);
-      console.log(docSnap.data())
-      const data = JSON.parse(JSON.stringify(docSnap.data()));
-      // console.log(data.name);
-      const transformedData = of(data).pipe(
-        map((res) => {
-          return {
-            ...res,
-            id,
-            date: new Date(res.date)
-          }
-        })).subscribe((result) => {
-          console.log(result);
-        });
-        return 1;
-    } catch (err) {
-      console.error('Error getting document:', err);
-      return null;
-    }
+    // console.log("SADASDS")
+    const docSnap = await getDoc(docRef);
+    // console.log(docSnap);
+    const data = JSON.parse(JSON.stringify(docSnap.data()));
+    return data
+    // try {
+    //   const docSnap = await getDoc(docRef);
+    //   console.log(docSnap.data())
+    //   const data = JSON.parse(JSON.stringify(docSnap.data()));
+    //   // console.log(data.name);
+    //   const transformedData = of(data).pipe(
+    //     map((res) => {
+    //       return {
+    //         ...res,
+    //         id,
+    //         date: new Date(res.date)
+    //       }
+    //     })).subscribe((result) => {
+    //       console.log(result);
+    //     });
+    //     return 1;
+    // } catch (err) {
+    //   console.error('Error getting document:', err);
+    //   return null;
+    // }
   }
   
 

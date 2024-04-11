@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProductService } from '../prod.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [RouterLink, CommonModule],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss'
 })
@@ -22,7 +22,6 @@ export class ProductPageComponent implements OnInit{
 
 
   ngOnInit() {
-    // this.product$ = this.productServ.getPhoneById("3fSwToYz2BBKeHs6PPRj");
 
   }
 

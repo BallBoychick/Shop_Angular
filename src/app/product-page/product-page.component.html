@@ -4,4 +4,5 @@
     <h2>{{ product.name}}</h2>
     <img src="{{product.img}}" class="product-image" alt="">
     <h2>Price: {{ product.price}} $</h2>
+    <button [routerLink]="['/product', product.id]" class="btn btn-dark">Open</button>
 </div>
